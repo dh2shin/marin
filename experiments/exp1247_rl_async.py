@@ -42,11 +42,13 @@ from marin.execution.executor import (
     OutputName,
     executor_main,
 )
-from marin.post_training.rollout_storage import RolloutStorageConfig, StorageType
-from marin.post_training.rollout_worker import RolloutWorker, RolloutWorkerConfig
-from marin.post_training.train_worker import ReplayBufferConfig, TrainWorker, TrainWorkerConfig
-from marin.post_training.weight_transfer import WeightTransferConfig, WeightTransferMode
 from marin.resources import TpuPodConfig
+from marin.rl.replay_buffer import ReplayBufferConfig
+from marin.rl.rollout_storage import RolloutStorageConfig, StorageType
+from marin.rl.rollout_worker import RolloutWorker, RolloutWorkerConfig
+from marin.rl.train_worker import TrainWorker, TrainWorkerConfig
+from marin.rl.environments import EnvConfig
+from marin.rl.weight_transfer import WeightTransferConfig, WeightTransferMode
 from marin.training.training import (
     _add_run_env_variables,
 )
@@ -54,8 +56,10 @@ from marin.utils import remove_tpu_lockfile_on_exit
 
 logger = logging.getLogger(__name__)
 
-ENVIRONMENT_SPEC = "math"
-MODEL_NAME = "meta-llama/Llama-3.2-1B"
+ENVIRONMENT_CONFIG = EnvConfig(
+    env_class="marin.rl.environments.mock_env.MockEnv", env_args={"task_type": "addition", "seed": 42}
+)
+MODEL_NAME = "meta-llama/Llama-3.2-1B-Instruct"
 # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
 # MODEL_NAME = "meta-llama/Llama-3.1-8B-Instruct"
 # MODEL_NAME = "Qwen/Qwen3-4B-Instruct-2507"
@@ -65,7 +69,7 @@ MODEL_TOKENIZER = MODEL_NAME
 MODEL_CHECKPOINT = MODEL_NAME
 MAX_INPUT_TOKENS = 128
 MAX_OUTPUT_TOKENS = 128
-RUN_ID = f"test-{MODEL_NAME.split('/')[-1]}-{ENVIRONMENT_SPEC.replace(':', '_').replace('=', '_')}"
+RUN_ID = f"test-{MODEL_NAME.split('/')[-1]}-{ENVIRONMENT_CONFIG.env_args['task_type']}"
 
 
 def stop_tokens(tokenizer_name: str):
@@ -94,16 +98,14 @@ def run_rl_training_on_pod(config: RLTrainConfig):
     env = _add_run_env_variables(env)
     env["EQX_ON_ERROR"] = "nan"
 
-    if "JAX_COMPILATION_CACHE_DIR" not in env:
-        marin_prefix = os.environ.get("MARIN_PREFIX")
-        if marin_prefix:
-            env["JAX_COMPILATION_CACHE_DIR"] = os.path.join(marin_prefix, "compilation-cache")
-            logger.info(f"JAX compilation cache enabled at: {env['JAX_COMPILATION_CACHE_DIR']}")
-        else:
-            logger.warning("MARIN_PREFIX environment variable not set. JAX compilation cache will not be configured.")
+    # if "JAX_COMPILATION_CACHE_DIR" not in env:
+    #     marin_prefix = os.environ.get("MARIN_PREFIX")
+    #     if marin_prefix:
+    #         env["JAX_COMPILATION_CACHE_DIR"] = os.path.join(marin_prefix, "compilation-cache")
+    #         logger.info(f"JAX compilation cache enabled at: {env['JAX_COMPILATION_CACHE_DIR']}")
+    #     else:
+    #         logger.warning("MARIN_PREFIX environment variable not set. JAX compilation cache will not be configured.")
 
-    # Use the default env when running on the driver (Ray doesn't support otherwise.)
-    # runtime_env = ray_deps.build_runtime_env_for_packages(extra=["tpu", "post_training"])
     runtime_env = RuntimeEnv()
 
     train_pod_config = TpuPodConfig(tpu_type=config.train_tpu_type, runtime_env=runtime_env)
@@ -179,6 +181,8 @@ def rl_train(name: str) -> ExecutorStep:
         tracker=TensorboardConfig(
             logdir=OutputName("tblogs"),
         ),
+        log_xla_hlo=False,
+        log_jaxprs=False,
         mp=jmp.get_policy("p=f32,c=bfloat16"),
         train_batch_size=8,
         num_train_steps=50000,
@@ -194,17 +198,15 @@ def rl_train(name: str) -> ExecutorStep:
     )
 
     opt_config = AdamConfig(
-        learning_rate=1e-3,
-        weight_decay=1e-3,
-        warmup=10,
+        learning_rate=1e-5,
+        weight_decay=1e-2,
+        warmup=100,
         lr_schedule="constant",
     )
 
     inference_server_config = InferenceServerConfig(
-        model=model_config,
         # Turn on tensor parallelism for inference
         trainer=dataclasses.replace(trainer_config, tensor_parallel_axes=["mlp", "kv_head"], model_axis_size=4),
-        hf_checkpoint=MODEL_CHECKPOINT,
         tokenizer=MODEL_TOKENIZER,
         temperature=1.0,
         service=InferenceEngineConfig(
@@ -222,7 +224,7 @@ def rl_train(name: str) -> ExecutorStep:
     weight_transfer = WeightTransferConfig(
         # mode=WeightTransferMode.JAX_TRANSFER_SERVER,
         mode=WeightTransferMode.ARROW_FLIGHT,
-        sync_interval_steps=1,
+        sync_interval_steps=4,
         poll_interval_seconds=1,
     )
 
@@ -243,7 +245,7 @@ def rl_train(name: str) -> ExecutorStep:
             # Don't allow resampling.
             max_samples=1,
         ),
-        kl_coef=0.001,
+        kl_coef=0.05,
         initial_checkpoint=MODEL_NAME,
         run_id=RUN_ID,
     )
@@ -252,7 +254,7 @@ def rl_train(name: str) -> ExecutorStep:
         trainer=trainer_config,
         inference_server_config=inference_server_config,
         model=model_config,
-        environment_spec=ENVIRONMENT_SPEC,
+        environment_spec=ENVIRONMENT_CONFIG,
         max_input_length=MAX_INPUT_TOKENS,
         max_output_length=MAX_OUTPUT_TOKENS,
         pad_token_id=(tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id),
@@ -292,7 +294,7 @@ def main():
         return
 
     experiments = [
-        rl_train(name="llama-1b-math-rl-test-005"),
+        rl_train(name="llama-1b-math-rl-test-010"),
     ]
 
     executor_main(

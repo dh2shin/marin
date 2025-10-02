@@ -1330,7 +1330,7 @@ name = "brotlicffi"
 version = "1.1.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi" },
+    { name = "cffi", marker = "python_full_version < '3.13' or platform_python_implementation == 'PyPy' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/95/9d/70caa61192f570fcf0352766331b735afa931b4c6bc9a348a0925cc13288/brotlicffi-1.1.0.0.tar.gz", hash = "sha256:b77827a689905143f87915310b93b273ab17888fd43ef350d4832c4a71083c13", size = 465192, upload-time = "2023-09-14T14:22:40.707Z" }
 wheels = [
@@ -1340,6 +1340,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/cd/15/695b1409264143be3c933f708a3f81d53c4a1e1ebbc06f46331decbf6563/brotlicffi-1.1.0.0-cp37-abi3-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:84763dbdef5dd5c24b75597a77e1b30c66604725707565188ba54bab4f114820", size = 2851834, upload-time = "2023-09-14T14:22:03.571Z" },
     { url = "https://files.pythonhosted.org/packages/b4/40/b961a702463b6005baf952794c2e9e0099bde657d0d7e007f923883b907f/brotlicffi-1.1.0.0-cp37-abi3-win32.whl", hash = "sha256:1b12b50e07c3911e1efa3a8971543e7648100713d4e0971b13631cce22c587eb", size = 341731, upload-time = "2023-09-14T14:22:05.74Z" },
     { url = "https://files.pythonhosted.org/packages/1c/fa/5408a03c041114ceab628ce21766a4ea882aa6f6f0a800e04ee3a30ec6b9/brotlicffi-1.1.0.0-cp37-abi3-win_amd64.whl", hash = "sha256:994a4f0681bb6c6c3b0925530a1926b7a189d878e6e5e38fae8efa47c5d9c613", size = 366783, upload-time = "2023-09-14T14:22:07.096Z" },
+]
+
+[[package]]
+name = "build"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "(os_name == 'nt' and sys_platform != 'darwin' and sys_platform != 'linux') or (os_name == 'nt' and sys_platform == 'darwin' and extra == 'extra-5-marin-cuda12') or (os_name == 'nt' and sys_platform == 'darwin' and extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-crawl' and extra != 'extra-5-marin-tpu') or (os_name == 'nt' and sys_platform == 'darwin' and extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-cuda12' and extra != 'extra-5-marin-download-transform' and extra != 'extra-5-marin-post-training' and extra != 'extra-5-marin-tpu') or (os_name != 'nt' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (os_name != 'nt' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (os_name != 'nt' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (os_name != 'nt' and extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu') or (os_name != 'nt' and extra == 'extra-5-marin-cpu' and extra != 'extra-5-marin-crawl' and extra == 'extra-5-marin-tpu') or (os_name != 'nt' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-tpu' and extra == 'group-5-marin-dev') or (os_name != 'nt' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-tpu' and extra == 'group-5-marin-transform-test-deps') or (os_name != 'nt' and extra == 'extra-5-marin-cpu' and extra != 'extra-5-marin-download-transform' and extra != 'extra-5-marin-post-training' and extra == 'extra-5-marin-tpu') or (os_name != 'nt' and extra != 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'group-5-marin-dev') or (os_name != 'nt' and extra != 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'group-5-marin-transform-test-deps') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (sys_platform == 'linux' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (sys_platform == 'linux' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (sys_platform == 'linux' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (sys_platform == 'linux' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (sys_platform == 'linux' and extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (sys_platform == 'linux' and extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (sys_platform == 'linux' and extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (sys_platform == 'darwin' and extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (sys_platform == 'darwin' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'extra-5-marin-download-transform') or (sys_platform == 'darwin' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'extra-5-marin-post-training') or (sys_platform == 'darwin' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu' and extra == 'group-5-marin-dev') or (sys_platform == 'darwin' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu' and extra == 'group-5-marin-transform-test-deps')" },
+    { name = "packaging" },
+    { name = "pyproject-hooks" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/25/1c/23e33405a7c9eac261dff640926b8b5adaed6a6eb3e1767d441ed611d0c0/build-1.3.0.tar.gz", hash = "sha256:698edd0ea270bde950f53aed21f3a0135672206f3911e0176261a31e0e07b397", size = 48544, upload-time = "2025-08-01T21:27:09.268Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cb/8c/2b30c12155ad8de0cf641d76a8b396a16d2c36bc6d50b621a62b7c4567c1/build-1.3.0-py3-none-any.whl", hash = "sha256:7145f0b5061ba90a1500d60bd1b13ca0a8a4cebdd0cc16ed8adf1c0e739f43b4", size = 23382, upload-time = "2025-08-01T21:27:07.844Z" },
 ]
 
 [[package]]
@@ -3215,18 +3229,19 @@ wheels = [
 
 [[package]]
 name = "haliax"
-version = "1.4.dev413"
+version = "1.4.dev419"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aqtp" },
     { name = "equinox" },
+    { name = "jax" },
     { name = "jaxtyping" },
     { name = "jmp" },
     { name = "safetensors" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1c/c4/2e13fa0940c006c336f6bf9709e9a40440735f07e72f94dd2cf2ef762a00/haliax-1.4.dev413.tar.gz", hash = "sha256:4113e44c4a75ae5644ed2bc054b09c1eb148de22352aac445f59aec659dead97", size = 809193, upload-time = "2025-09-16T00:56:49.893Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/01/40/1f02d5e855afd37564db0a843fc4412dbbf017c898faaa0a0e1927e73333/haliax-1.4.dev419.tar.gz", hash = "sha256:3b26e1a06622b03adf163f9e7a2a31b9e8a31182a1da21dad82760b997ae65d1", size = 833176, upload-time = "2025-09-30T23:01:54.84Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1c/5e/844bd8095de0748758192e46619ae90b10d6d43b8216918e1af460aa9612/haliax-1.4.dev413-py3-none-any.whl", hash = "sha256:54a89a8921c1058bcb431c4c961c4cfbbab51646237569999a7ce841b845f20f", size = 133715, upload-time = "2025-09-16T00:56:47.793Z" },
+    { url = "https://files.pythonhosted.org/packages/70/9b/1cdef3cc5c0792368640afdcc879b750ea11b0e051d9a342626332b43c1e/haliax-1.4.dev419-py3-none-any.whl", hash = "sha256:67add7af3e2020f36d0b0ff5b9bd73d3864420fad48aef06f53236f4b704e768", size = 136632, upload-time = "2025-09-30T23:01:53Z" },
 ]
 
 [[package]]
@@ -4403,7 +4418,6 @@ post-training = [
     { name = "tqdm" },
     { name = "transformers" },
     { name = "tyro" },
-    { name = "verifiers" },
     { name = "wandb" },
 ]
 quality-dedup-consolidate = [
@@ -4417,6 +4431,11 @@ quality-dedup-consolidate = [
     { name = "nltk" },
     { name = "transformers" },
     { name = "zstandard" },
+]
+rl = [
+    { name = "prime" },
+    { name = "sympy" },
+    { name = "verifiers" },
 ]
 tokenize-train = [
     { name = "haliax" },
@@ -4557,7 +4576,7 @@ requires-dist = [
     { name = "google-cloud-storage-transfer", marker = "extra == 'crawl'", specifier = "~=1.0" },
     { name = "google-cloud-storage-transfer", marker = "extra == 'download-transform'", specifier = "~=1.0" },
     { name = "google-cloud-storage-transfer", marker = "extra == 'gcp'" },
-    { name = "haliax", specifier = ">=1.4.dev381" },
+    { name = "haliax", specifier = ">=1.4.dev418" },
     { name = "haliax", marker = "extra == 'tokenize-train'", specifier = ">=1.4.dev348" },
     { name = "html2text", marker = "extra == 'download-transform'", specifier = "==2024.2.26" },
     { name = "htmlmin", marker = "extra == 'crawl'" },
@@ -4589,6 +4608,7 @@ requires-dist = [
     { name = "openai" },
     { name = "orjson", marker = "extra == 'crawl'" },
     { name = "pandas" },
+    { name = "prime", marker = "extra == 'rl'" },
     { name = "py-asciimath", marker = "extra == 'crawl'" },
     { name = "py7zr", marker = "extra == 'crawl'" },
     { name = "py7zr", marker = "extra == 'download-transform'" },
@@ -4614,6 +4634,7 @@ requires-dist = [
     { name = "spacy", marker = "extra == 'crawl'" },
     { name = "swebench", marker = "sys_platform != 'darwin' and extra == 'post-training'" },
     { name = "sympy", marker = "extra == 'post-training'" },
+    { name = "sympy", marker = "extra == 'rl'" },
     { name = "tblib", marker = "extra == 'tokenize-train'" },
     { name = "tiktoken", marker = "extra == 'tokenize-train'" },
     { name = "toml" },
@@ -4630,7 +4651,7 @@ requires-dist = [
     { name = "transformers", marker = "extra == 'post-training'" },
     { name = "transformers", marker = "extra == 'quality-dedup-consolidate'" },
     { name = "tyro", marker = "extra == 'post-training'", specifier = "==0.8.11" },
-    { name = "verifiers", marker = "extra == 'post-training'" },
+    { name = "verifiers", marker = "extra == 'rl'" },
     { name = "w3lib", marker = "extra == 'crawl'" },
     { name = "wandb" },
     { name = "wandb", marker = "extra == 'post-training'" },
@@ -4639,7 +4660,7 @@ requires-dist = [
     { name = "zstandard", marker = "extra == 'data-browser'", specifier = "==0.23.0" },
     { name = "zstandard", marker = "extra == 'quality-dedup-consolidate'", specifier = ">=0.23.0" },
 ]
-provides-extras = ["gcp", "cuda12", "tpu", "cpu", "crawl", "download-transform", "quality-dedup-consolidate", "tokenize-train", "post-training", "data-browser", "eval", "pm"]
+provides-extras = ["gcp", "cuda12", "tpu", "cpu", "crawl", "download-transform", "quality-dedup-consolidate", "tokenize-train", "rl", "post-training", "data-browser", "eval", "pm"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -5005,10 +5026,10 @@ dependencies = [
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "python-multipart" },
-    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
+    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
     { name = "sse-starlette" },
     { name = "starlette" },
-    { name = "uvicorn", marker = "sys_platform != 'emscripten' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
+    { name = "uvicorn", marker = "sys_platform != 'emscripten' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/0c/9e/e65114795f359f314d7061f4fcb50dfe60026b01b52ad0b986b4631bf8bb/mcp-1.15.0.tar.gz", hash = "sha256:5bda1f4d383cf539d3c035b3505a3de94b20dbd7e4e8b4bd071e14634eeb2d72", size = 469622, upload-time = "2025-09-25T15:39:51.995Z" }
 wheels = [
@@ -7341,6 +7362,25 @@ wheels = [
 ]
 
 [[package]]
+name = "prime"
+version = "0.3.35"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "build" },
+    { name = "cryptography" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "rich" },
+    { name = "toml" },
+    { name = "typer" },
+    { name = "verifiers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/43/cd/7a3dbc92e6758478d8b611d9d891856796276da372709998beb7e7eba21f/prime-0.3.35.tar.gz", hash = "sha256:a16c2deac210e84ba794dea06ff6a7c23384779ec9eb1b86146b1aced87b147e", size = 138962, upload-time = "2025-09-30T05:28:38.146Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f0/8c/1e893bb0c1e0c8577d05393a79d1cffed94a867672e3d5d5468ffa7b17fe/prime-0.3.35-py3-none-any.whl", hash = "sha256:faa213de539de4116e375e29571cfed4eb589fe46f07b023494a094b236a360c", size = 61222, upload-time = "2025-09-30T05:28:36.841Z" },
+]
+
+[[package]]
 name = "prometheus-client"
 version = "0.23.1"
 source = { registry = "https://pypi.org/simple" }
@@ -7945,6 +7985,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pyproject-hooks"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e7/82/28175b2414effca1cdac8dc99f76d660e7a4fb0ceefa4b4ab8f5f6742925/pyproject_hooks-1.2.0.tar.gz", hash = "sha256:1e859bd5c40fae9448642dd871adf459e5e2084186e8d2c2a79a824c970da1f8", size = 19228, upload-time = "2024-09-29T09:24:13.293Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl", hash = "sha256:9e5c6bfa8dcc30091c74b0cf803c81fdd29d94f01992a7707bc97babb1141913", size = 10216, upload-time = "2024-09-29T09:24:11.978Z" },
+]
+
+[[package]]
 name = "pyreadline3"
 version = "3.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -8369,7 +8418,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/2f/db/98b5c277be99dd18bfd91dd04e1b759cad18d1a338188c936e92f921c7e2/referencing-0.36.2.tar.gz", hash = "sha256:df2e89862cd09deabbdba16944cc3f10feb6b3e6f18e902f7cc25609a34775aa", size = 74744, upload-time = "2025-01-25T08:48:16.138Z" }
 wheels = [
@@ -10170,7 +10219,7 @@ version = "0.48.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-post-training') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-dev') or (extra == 'extra-5-marin-crawl' and extra == 'group-5-marin-transform-test-deps') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a7/a5/d6f429d43394057b67a6b5bbe6eae2f77a6bf7459d961fdb224bf206eee6/starlette-0.48.0.tar.gz", hash = "sha256:7e8cee469a8ab2352911528110ce9088fdc6a37d9876926e73da7ce4aa4c7a46", size = 2652949, upload-time = "2025-09-13T08:41:05.699Z" }
 wheels = [
@@ -10353,7 +10402,7 @@ name = "textual"
 version = "6.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "markdown-it-py", extra = ["linkify", "plugins"], marker = "extra == 'extra-5-marin-post-training' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-cuda12') or (extra == 'extra-5-marin-crawl' and extra == 'extra-5-marin-download-transform') or (extra == 'extra-5-marin-cuda12' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-tpu' and extra == 'group-5-marin-dev') or (extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-tpu' and extra == 'group-5-marin-transform-test-deps') or (extra == 'extra-5-marin-cpu' and extra != 'extra-5-marin-download-transform' and extra != 'extra-5-marin-post-training' and extra == 'extra-5-marin-tpu') or (extra == 'extra-5-marin-cpu' and extra != 'extra-5-marin-crawl' and extra != 'extra-5-marin-post-training' and extra == 'extra-5-marin-tpu') or (extra != 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'group-5-marin-dev') or (extra != 'extra-5-marin-cpu' and extra == 'extra-5-marin-crawl' and extra != 'extra-5-marin-cuda12' and extra == 'group-5-marin-transform-test-deps')" },
+    { name = "markdown-it-py", extra = ["linkify", "plugins"] },
     { name = "platformdirs" },
     { name = "pygments" },
     { name = "rich" },
@@ -11616,10 +11665,10 @@ name = "typer"
 version = "0.19.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "click", marker = "sys_platform != 'darwin' or extra == 'extra-5-marin-cuda12' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-tpu')" },
-    { name = "rich", marker = "sys_platform != 'darwin' or extra == 'extra-5-marin-cuda12' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-tpu')" },
-    { name = "shellingham", marker = "sys_platform != 'darwin' or extra == 'extra-5-marin-cuda12' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-tpu')" },
-    { name = "typing-extensions", marker = "sys_platform != 'darwin' or extra == 'extra-5-marin-cuda12' or (extra == 'extra-5-marin-cpu' and extra == 'extra-5-marin-tpu') or (extra != 'extra-5-marin-cpu' and extra != 'extra-5-marin-tpu')" },
+    { name = "click" },
+    { name = "rich" },
+    { name = "shellingham" },
+    { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/21/ca/950278884e2ca20547ff3eb109478c6baf6b8cf219318e6bc4f666fad8e8/typer-0.19.2.tar.gz", hash = "sha256:9ad824308ded0ad06cc716434705f691d4ee0bfd0fb081839d2e426860e7fdca", size = 104755, upload-time = "2025-09-23T09:47:48.256Z" }
 wheels = [
